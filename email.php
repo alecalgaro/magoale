@@ -11,7 +11,7 @@
     $direccion = "alecalgaro@hotmail.com";
 
     //Para concatenar:
-    $contenido = "Nombre: " . $nombre . "\nCorreo: " . $email . "\nMensaje: " . $mensaje ;
+    $contenido = "Nombre: ".$nombre."\nCorreo: ".$email."\nMensaje: ".$mensaje ;
 
     /* Para mostrar los datos obtenidos puedo hacer:
     echo $nombre;
@@ -33,7 +33,7 @@
     */
 
     //Para que aparezca un alert como en js con un mensaje: (Comprobar si al apretar "Aceptar" te deja en la misma página)
-    echo '<script language="javascript">alert("Gracias por enviar tu mensaje");</script>';  //Cuidado con las comillas simples y dobles.
+    //echo '<script language="javascript">alert("Gracias por enviar tu mensaje");</script>';  //Cuidado con las comillas simples y dobles.
 
     /*Si quiero poner un mensaje para comprobar si el email se envio correctamente, puedo hacer:
     if(mail('alecalgaro@hotmail.com', $nombre, $email, $mensaje)){
