@@ -18,15 +18,6 @@
     echo $nombre. " ha dicho: " .$mensaje;
     */
 
-    $header= "From: noreply@example.com" . "\r\n";
-    $header.= "Reply-To: noreply@example.com" . "\r\n";
-    $header.= "X-Mailer: PHP/" .phpversion();
-    
-    $mail = mail($direccion, "Contacto ", $contenido);
-    if($mail) {
-	    echo "<h4> Mail enviado exitosamente </h4>";
-    }
-
     //Para enviar por email uso la funcion "mail" de php (no permite enviar correos desde localhost, solo desde un servidor):
     //Se usa el correo donde lo quiero enviar y los datos que se quieren enviar.
     //Puede que los mensajes aparezcan en spam.
