@@ -11,7 +11,7 @@
     $direccion = "alecalgaro@hotmail.com";
 
     //Para concatenar:
-    $contenido = "Nombre: ".$nombre."\nCorreo: ".$email."\nMensaje: ".$mensaje ;
+    $contenido = "Nombre: " . $nombre . "\nCorreo: " . $email . "\nMensaje: " . $mensaje ;
 
     /* Para mostrar los datos obtenidos puedo hacer:
     echo $nombre;
