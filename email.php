@@ -23,6 +23,9 @@
     //Puede que los mensajes aparezcan en spam.
     mail($direccion, "Contacto ", $contenido);
 
+    echo "<script>alert('Correo enviado exitosamente')</script>"
+    echo "<script> setTimeout(\"location.href='index.html'\", 1000)</script>";
+
     /*Otra opción en lugar de usar la función "mail", sería usar la librería "PhpMailer":
     En éste vídeo explican como se usa: https://www.youtube.com/watch?v=RSlE38lvlys
     */
