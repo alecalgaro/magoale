@@ -2,7 +2,7 @@
     "name": "Mago Ale",
     "short_name": "Mago Ale", 
     "lang": "es-ES",
-    "start_url": "alecalgaro/github.io/magoale",
+    "start_url": "/",
     "background_color": "#2C3E50",
     "theme_color": "#18BC9C",
     "display": "standalone",
