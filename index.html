@@ -311,7 +311,7 @@
                 var a = v.split ('='); 
                 q[a [0]] = a.slice (1).join ('=').replace (/~ y ~/g, '&'); 
               }); 
-              if (qq! == undefined) { 
+              if (qp !== undefined) { 
                 window.history.replaceState(null, null, l.pathname.slice (0, -1) + ( qp || '') + (qq? ('?' + qq): '') + l.hash 
                 );
               } 
