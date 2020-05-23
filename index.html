@@ -291,5 +291,14 @@
         src="https://cdn.rawgit.com/dwyl/html-form-send-email-via-google-script-without-server/master/form-submission-handler.js"></script>
     -->
     
+<script>
+    // This is the "Offline copy of pages" service worker
+
+    import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+
+    const el = document.createElement('pwa-update');
+    document.body.appendChild(el);
+</script>
+
 </body>
 </html>
