@@ -17,11 +17,8 @@
     <a-scene embedded arjs="debugUIEnabled: false;" vr-mode-ui="enabled: false">   
       
     <a-marker preset="hiro">
-    
-
-    <a-entity fbx-model="src:url(modelo/casa.fbx);"></a-entity>
-
-
+    <video id="mivideo" crossOrigin="anonymous" playsinline webkitplaysinline autoplay controls muted src="2.mp4"></video>
+    <a-video src="#mivideo" position="0 0 0" rotation="270 0 0" ></a-video>
    
    <script> 
       var m = document.querySelector("a-marker")
