@@ -15,10 +15,13 @@
 <body style='margin : 0px; overflow: hidden;'>
 
     <a-scene embedded arjs="debugUIEnabled: false;" vr-mode-ui="enabled: false">   
-
+      
     <a-marker preset="hiro">
-    <video id="mivideo" crossOrigin="anonymous" playsinline webkitplaysinline autoplay controls muted src="2.mp4"></video>
-    <a-video src="#mivideo" position="0 0 0" rotation="270 0 0" ></a-video>
+    
+
+    <a-entity fbx-model=”src: url(casa.fbx);”></a-entity>
+
+
    
    <script> 
       var m = document.querySelector("a-marker")
