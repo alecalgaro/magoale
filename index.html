@@ -3,9 +3,13 @@
 <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
 
 <body style="margin: 0px; overflow: hidden;">
-<a-scene embedded arjs="sourceType: webcam;">
-<a-marker preset="hiro">
-    <a-entity fbx-model="src:url(modelo/casa.fbx);"></a-entity>
+    <a-scene embedded arjs="debugUIEnabled: false;" vr-mode-ui="enabled: false"> 
+  
+    <a-marker preset="hiro">
+    <!-- <a-entity fbx-model="src:url(modelo/casa.fbx);"></a-entity> -->
+    <video id="mivideo" crossorigin="anonymous" playsinline webkitplaysinline autoplay controls muted src="2.mp4"></video>
+      <a-video src="#mivideo" position="0 0 0" rotation="270 0 0"></a-video>  <!-- Características del vídeo -->
+
 </a-marker>
 <a-entity camera>
 </a-entity>
