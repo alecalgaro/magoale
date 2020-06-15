@@ -2,9 +2,11 @@
 <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/dev/aframe/build/aframe-ar.js"></script>
 <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
 
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimun-scale=1.0">
+
 <style>
   .button {
-    background-color: #4CAF50; 
+    background-color: rgba(2, 4, 141, 0.541);; 
     border: none;
     color: white;
     padding: 7px;
@@ -15,18 +17,28 @@
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 12px;
-    border: 2px solid rgba(9, 148, 28, 0.541);
+    border: 2px solid rgba(2, 4, 141, 0.541);
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
   }
   
-  .botones {
-    display: flex;
-    justify-content: center;
+  .contenedor{
+    width: 95%;
+  
+  }
+
+  .botones{
+    position: center; 
+    top: 10px; 
+    width:100%; 
+    text-align: center; 
+    z-index: 1;
   }
 
   </style>
 
-<div class="botones" style='position: fixed; top: 10px; width:100%; text-align: center; z-index: 1;'>
+<div class="contenedor">
+
+<div class="botones">
     <button class="button" id="btn1">Play Sound</button>
     <button class="button" id="btn2">Stop Sound</button>
     <button class="button" id="btn3">Stop Video</button>
@@ -44,6 +56,8 @@
     <video id="mivideo" crossOrigin="anonymous" playsinline webkitplaysinline autoplay controls muted src="1.mp4"></video>
     <a-video src="#mivideo" position="0 0 0" scale="3 2 2" rotation="270 0 0" ></a-video>
    
+</div>    
+
    <script> 
       var m = document.querySelector("a-marker")
       m.addEventListener("markerFound", (e)=>{
