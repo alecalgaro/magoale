@@ -22,7 +22,7 @@ document.getElementById("btn2").addEventListener("click", (e) => {
 })
 document.getElementById("btn3").addEventListener("click", (e) => {
 
-    var v = document.querySelector('#mivideo').pause();
+    <a href="www.facebook.com/alejandrocalgaro"></a>
 })
 document.getElementById("btn4").addEventListener("click", (e) => {
 
