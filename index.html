@@ -1,93 +1,184 @@
-<script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
-<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/dev/aframe/build/aframe-ar.js"></script>
-<script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<script src="jquery-3.1.1.js"></script>
+	<script src="artyom.min.js"></script>
+	<script src="artyomCommands.js"></script>
 
-<style>
-  .button {
-    background-color: #4CAF50; 
-    border: none;
-    color: white;
-    padding: 7px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px;
-    border: 2px solid rgba(9, 148, 28, 0.541);
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  }
-  
-  </style>
-
-<div style='position: fixed; top: 10px; width:100%; text-align: center; z-index: 1;'>
-    <button class="button" id="btn1">Play Sound</button>
-    <button class="button" id="btn2">Stop Sound</button>
-    <button class="button" id="btn3">Stop Video</button>
-    <button class="button" id="btn4">Play Video</button>
-   
-  </div>
-  
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<body style='margin : 0px; overflow: hidden;'>
-
-    <a-scene embedded arjs="debugUIEnabled: false;" vr-mode-ui="enabled: false">   
-    <a-marker preset="hiro">
-    <video id="mivideo" crossOrigin="anonymous" playsinline webkitplaysinline autoplay controls muted src="1.mp4"></video>
-    <a-video src="#mivideo" position="0 0 0" scale="3 2 2" rotation="270 0 0" ></a-video>
-   
-   <script> 
-      var m = document.querySelector("a-marker")
-      m.addEventListener("markerFound", (e)=>{
-      console.log("found")
-      var v = document.querySelector('#mivideo').play();
-   
-
-})
-      m.addEventListener("markerLost", (e)=>{
-      console.log("lost")
-      var v = document.querySelector('#mivideo').pause();
-  
-})
+	<style>
+		.contenedor{
+			width: 60%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="contenedor">		
+	
+		<!-- botonera -->
+		<div style="float: left;padding: 20px;">
+			<input type="button" onclick="startArtyom();" value="Start">
+			<input type="button" onclick="stopArtyom();" value="Stop">
+			<input id="salida" style="width: 400px;" />
+		</div>
 
 
-document.getElementById("btn1").addEventListener("click", (e)=>{
+		<!-- Menu -->
+		<div style="float: right;padding: 20px;">
+			<a href="http://www.facebook.com/intecsolt/" target="_blank" id="uno">uno</a> | 
+			<a href="http://www.facebook.com/intecsolt/" target="_blank" id="dos">dos</a> | 
+			<a href="http://www.facebook.com/intecsolt/" target="_blank" id="tres">tres</a> | 
+			<a href="http://www.facebook.com/intecsolt/" target="_blank" id="cuatro">cuatro</a> | 
+		</div>
+		<br><br><br>
 
-  var v = document.querySelector('#mivideo').muted=false;
-})
-document.getElementById("btn2").addEventListener("click", (e)=>{
+		<div style="padding: 20px;">
+			<label for="leer">Escribe un texto para leerlo</label>
+			<textarea id="leer" rows="4" cols="100"></textarea>
+			<input type="button" id="btnLeer" value="Leer">
+		</div>
 
-  var v = document.querySelector('#mivideo').muted=true;
-})
-document.getElementById("btn3").addEventListener("click", (e)=>{
+	</div>
 
-  var v = document.querySelector('#mivideo').pause();
-})
-document.getElementById("btn4").addEventListener("click", (e)=>{
+	<script>
 
-  var v = document.querySelector('#mivideo').play();
-})
+	// $(document).ready(function() {
+
+		$('#uno').mouseover(function() {
+			artyom.say("enlace 1")
+		});
+
+		$('#uno').mouseout(function() {
+			artyom.shutUp();
+		});
+
+		$('#dos').mouseover(function() {
+			artyom.say("enlace 2")
+		});
+
+		$('#tres').mouseover(function() {
+			artyom.say("enlace 3")
+		});
+
+		$('#cuatro').mouseover(function() {
+			artyom.say("enlace 4")
+		});
+
+		//El sistema responde
+		artyom.addCommands([
+			{
+				indexes:["buenos días",'cuál es tu banda favorita','Saluda a mis seguidores'],
+				action: function(i){
+					if (i==0) {
+						artyom.say("Hola Raul, buenos dias");
+					}
+					if (i==1) {
+						artyom.say("Raul, me gusta tu banda BLESS");
+					}
+					if (i==2) {
+						artyom.say("Hola gente, espero les este yendo muy bien y que este tutorial les ayude de mucho. Saludos");
+					}
+				}
+			},
+			{
+				indexes:['me voy','chau'],
+				action: function(){
+					alert('ok, chau');					
+				}
+			},
+			{
+				indexes:['abrir google','abrir facebook', 'abrir youtube'],
+				action: function(i){
+					if (i==0) {
+						artyom.say("Abriendo google");
+						window.open("http://www.google.com",'_blank');
+					}
+					if (i==1) {
+						artyom.say("Abriendo facebook");
+						window.open("http://www.facebook.com/intecsolt/",'_blank');
+					}
+					if (i==2) {
+						artyom.say("Abriendo youtube");
+						window.open("https://www.youtube.com/channel/UCF721oswf7EUSsQbuGFoMZQ",'_blank');
+					}
+				}
+			},
+			{
+				indexes:['limpiar'],
+				action: function(){
+					$('#salida').val('');
+				}
+			}
+		]); 
+
+		// Escribir lo que escucha.
+		artyom.redirectRecognizedTextOutput(function(text,isFinal){
+			var texto = $('#salida');
+			if (isFinal) {
+				texto.val(text);
+			}else{
+				
+			}
+		});
 
 
-     </script>
-      </a-marker>
-      <a-entity camera></a-entity>
-    </a-scene>
+		//inicializamos la libreria Artyom
+		function startArtyom(){
+			artyom.initialize({
+				lang: "es-ES",
+				continuous:false,// Reconoce 1 solo comando y para de escuchar, si es true Artyom will listen forever
+	            listen:true, // Iniciar !
+	            debug:true, // Muestra un informe en la consola abriendo en "inspeccionar". (Muestra todo lo que vamos diciendo)
+	            speed:1 // Habla normalmente
+			});
+		};
+		
+		// Stop libreria;
+		function stopArtyom(){
+			artyom.fatality();// Detener cualquier instancia previa
+		};
+
+		// leer texto
+		$('#btnLeer').click(function (e) {
+            e.preventDefault();
+            var btn = $('#btnLeer');
+            if (artyom.speechSupported()) {
+                btn.addClass('disabled');
+                btn.attr('disabled', 'disabled');
+
+                var text = $('#leer').val();
+                if (text) {
+                    var lines = $("#leer").val().split("\n").filter(function (e) {
+                        return e
+                    });
+                    var totalLines = lines.length - 1;
+
+                    for (var c = 0; c < lines.length; c++) {
+                        var line = lines[c];
+                        if (totalLines == c) {
+                            artyom.say(line, {
+                                onEnd: function () {
+                                    btn.removeAttr('disabled');
+                                    btn.removeClass('disabled');
+                                }
+                            });
+                        } else {
+                            artyom.say(line);
+                        }
+                    }
+                }
+            } else {
+                alert("Your browser cannot talk !");
+            }
+        });
+
+	// });
+	</script>
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</html>
