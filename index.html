@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<!-- EN PC NO APARECEN LOS BOTONES, EN CELULAR SI-->
+<!-- EN PC NO APARECEN LOS BOTONES, EN CELULAR SI
+      EN LA VERSIÓN ORIGINAL SI APARECEN EN PC, ACA NO PORQUE LO MODIFIQUE -->
 
 <head>
   <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
@@ -12,8 +13,7 @@
   <script src="script.js"></script>
 
   <!-- Esta etiqueta name="viewport" es necesaria para hacer el sitio responsive-->
-  <meta name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimun-scale=1.0">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimun-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
 </head>
@@ -24,11 +24,17 @@
 
   <div class="contenedor">
 
+    <!-- Dos formas de hacer los botones:
+     1) <button class="button" id="btn2" type="reset" onclick="location.href='http:/www.facebook.com'" target="_blank">Facebook</button>
+     2) <a href="http://youtube.com" target="_blank"><button class="button" id="btn4">Youtube</button></a>
+    Con las 2da opción hago que se abra en otra pestaña.
+    -->
+
     <div class="botones">
-      <button class="button" id="btn1">Play Sound</button>
-      <button class="button" id="btn2">Stop Sound</button>
-      <button class="button" id="btn3">Stop Video</button>
-      <button class="button" id="btn4">Play Video</button>
+      <a href="http://instagram.com" target="_blank"><button class="button" id="btn1">Instagram</button></a>
+      <a href="http://facebook.com" target="_blank"><button class="button" id="btn2">Facebook</button></a>
+      <a href="http://twitter.com" target="_blank"><button class="button" id="btn3">Twitter</button></a>
+      <a href="http://youtube.com" target="_blank"><button class="button" id="btn4">Youtube</button></a>
     </div>
 
     <a-scene embedded arjs="debugUIEnabled: false;" vr-mode-ui="enabled: false">
