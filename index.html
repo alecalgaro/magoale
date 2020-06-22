@@ -1,185 +1,64 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title></title>
-	<link rel="stylesheet" href="">
-	<script src="jquery-3.1.1.js"></script>
-	<script src="artyom.min.js"></script>
-	<script src="artyomCommands.js"></script>
+<!-- Librerías necesarias -->
+<!-- Augmented Reality on the Web in 10 lines of html! https://github.com/jeromeetienne/ar.js -->
+<script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+<!-- aframe-keyboard-controls.js Permite todas las accion utilizando el Teclado -->
+<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/dev/aframe/build/aframe-ar.js"></script>
+<script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
 
-	<style>
-		.contenedor{
-			width: 60%;
-			margin-left: auto;
-			margin-right: auto;
-		}
-	</style>
-</head>
-<body>
-	
-	<div class="contenedor">		
-	
-		<!-- botonera -->
-		<div style="float: left;padding: 20px;">
-			<input type="button" onclick="startArtyom();" value="Start">
-			<input type="button" onclick="stopArtyom();" value="Stop">
-			<input id="salida" style="width: 400px;" />
-		</div>
+<!-- También se puede usar los archivo .js incluidos en el proyecto en lugar de llamar las librerías
+    desde internet. Son diferentes porque las librerías tienen actualizaciones con el tiempo -->
+    
+<div style=" position: fixed; top: 10px; width: 100%;text-align: center;z-index: 1;">
+  <button>  <!-- Botón por defecto, se puede crear uno mejor con con otros estilos -->
+    Activar sonido
+  </button>
+</div>
 
+<!-- Le informo a la app que va a tener un tipo de interacción, sino mi app en dispositivos ios va a 
+  reproducir el vídeo sin audio. En PC y android no hay ese problema. -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
 
-		<!-- Menu -->
-		<div style="float: right;padding: 20px;">
-			<a href="http://www.facebook.com/intecsolt/" target="_blank" id="uno">uno</a> | 
-			<a href="http://www.facebook.com/intecsolt/" target="_blank" id="dos">dos</a> | 
-			<a href="http://www.facebook.com/intecsolt/" target="_blank" id="tres">tres</a> | 
-			<a href="http://www.facebook.com/intecsolt/" target="_blank" id="cuatro">cuatro</a> | 
-		</div>
-		<br><br><br>
+<body style="margin: 0px; overflow: hidden;"> <!-- Estilo del cuerpo de la página -->
+  <!-- Para quitar de la pantalla una información que agrega arjs y el símbolo de realidad virtual de la esquina inferior izquierda -->
+  <a-scene embedded arjs="debugUIEnabled: false;" vr-mode-ui="enabled: false"> 
+    
+    <!-- Para usar un marcador de barras se lo crea acá: https://ar-js-org.github.io/AR.js/three.js/examples/marker-training/examples/generator.html
+          y luego se pone el .patt en "url" que se descarga desde "Dowload marker" y para enfocar se usa la imagen
+          que se descarga desde "dowload image"-->
+    <!-- Para usar el marcador "hiro" que viene por defecto, se pone simplemente <a-marker preset="hiro"> y se borra el resto -->
+    
+      <!-- Marcador:
+      <a-marker preset="custom" type="pattern" url="marcadores/pattern-marker.patt">  -->
+      <a-marker preset="hiro">
 
-		<div style="padding: 20px;">
-			<label for="leer">Escribe un texto para leerlo</label>
-			<textarea id="leer" rows="4" cols="100"></textarea>
-			<input type="button" id="btnLeer" value="Leer">
-		</div>
+      <!-- Agrego el vídeo y algunas opciones:
+        crossorigin="anonymous" es para que nos permita estar en internet y no tengamos ningun problema con la aplicación por un cruce de información,
+        el resto es una línea de seguridad que se agrega para dispositivos ios, "autoplay" es para que comience automáticamente, "controls" 
+        es para cuando se usa en PC, "muted" es para que comience en silencio, si no se coloca no aparece el vídeo, aparecería un cuadro negro  -->
+      <video id="mivideo" crossorigin="anonymous" playsinline webkitplaysinline autoplay controls muted src="2.mp4"></video>
+      <a-video src="#mivideo" position="0 0 0" rotation="270 0 0"></a-video>  <!-- Características del vídeo -->
 
-	</div>
+      <!-- Script que permite reproducir y detener el vídeo -->
+      <script>
+        //Cuando se enfoca el marcador, se pone play al vídeo:
+        var m = document.querySelector("a-marker");
+        m.addEventListener("markerFound", (e) => {
+          console.log("found");
+          var v = document.querySelector("#mivideo").play();  //Si quiero hacer otra cosa, ésta línea es la que se debería cambiar
+        })
+        //Cuando se deja de enforcar el marcador, el vídeo se pone en pausa:
+        m.addEventListener("markerLost", (e) => {
+          console.log("lost");
+          var v = document.querySelector("#mivideo").pause();
+        })
 
-	<script>
-
-	// $(document).ready(function() {
-
-		$('#uno').mouseover(function() {
-			artyom.say("enlace 1")
-		});
-
-		$('#uno').mouseout(function() {
-			artyom.shutUp();
-		});
-
-		$('#dos').mouseover(function() {
-			artyom.say("enlace 2")
-		});
-
-		$('#tres').mouseover(function() {
-			artyom.say("enlace 3")
-		});
-
-		$('#cuatro').mouseover(function() {
-			artyom.say("enlace 4")
-		});
-
-		//El sistema responde
-		artyom.addCommands([
-			{
-				indexes:["buenos días",'cuál es tu banda favorita','Saluda a mis seguidores'],
-				action: function(i){
-					if (i==0) {
-						artyom.say("Hola Raul, buenos dias");
-						
-					}
-					if (i==1) {
-						artyom.say("Raul, me gusta tu banda BLESS");
-					}
-					if (i==2) {
-						artyom.say("Hola gente, espero les este yendo muy bien y que este tutorial les ayude de mucho. Saludos");
-					}
-				}
-			},
-			{
-				indexes:['me voy','chau'],
-				action: function(){
-					alert('ok, chau');					
-				}
-			},
-			{
-				indexes:['abrir google','abrir facebook', 'abrir youtube'],
-				action: function(i){
-					if (i==0) {
-						artyom.say("Abriendo google");
-						window.open("http://www.google.com",'_blank');
-					}
-					if (i==1) {
-						artyom.say("Abriendo facebook");
-						window.open("http://www.facebook.com/intecsolt/",'_blank');
-					}
-					if (i==2) {
-						artyom.say("Abriendo youtube");
-						window.open("https://www.youtube.com/channel/UCF721oswf7EUSsQbuGFoMZQ",'_blank');
-					}
-				}
-			},
-			{
-				indexes:['limpiar'],
-				action: function(){
-					$('#salida').val('');
-				}
-			}
-		]); 
-
-		// Escribir lo que escucha.
-		artyom.redirectRecognizedTextOutput(function(text,isFinal){
-			var texto = $('#salida');
-			if (isFinal) {
-				texto.val(text);
-			}else{
-				
-			}
-		});
-
-
-		//inicializamos la libreria Artyom
-		function startArtyom(){
-			artyom.initialize({
-				lang: "es-ES",
-				continuous:true,// En false Reconoce 1 solo comando y para de escuchar, si es true Artyom will listen forever
-	            listen:true, // Iniciar !
-	            debug:true, // Muestra un informe en la consola abriendo en "inspeccionar". (Muestra todo lo que vamos diciendo)
-	            speed:1 // Habla normalmente
-			});
-		};
-		
-		// Stop libreria;
-		function stopArtyom(){
-			artyom.fatality();// Detener cualquier instancia previa
-		};
-
-		// leer texto
-		$('#btnLeer').click(function (e) {
-            e.preventDefault();
-            var btn = $('#btnLeer');
-            if (artyom.speechSupported()) {
-                btn.addClass('disabled');
-                btn.attr('disabled', 'disabled');
-
-                var text = $('#leer').val();
-                if (text) {
-                    var lines = $("#leer").val().split("\n").filter(function (e) {
-                        return e
-                    });
-                    var totalLines = lines.length - 1;
-
-                    for (var c = 0; c < lines.length; c++) {
-                        var line = lines[c];
-                        if (totalLines == c) {
-                            artyom.say(line, {
-                                onEnd: function () {
-                                    btn.removeAttr('disabled');
-                                    btn.removeClass('disabled');
-                                }
-                            });
-                        } else {
-                            artyom.say(line);
-                        }
-                    }
-                }
-            } else {
-                alert("Your browser cannot talk !");
-            }
-        });
-
-	// });
-	</script>
+        //Cuando se hace clic sobre el botón se activa el sonido.
+        document.querySelector("button").addEventListener("click", (e) => {
+          console.log("Activar Sonido");
+          var v = (document.querySelector("#mivideo").muted = false); //Si quiero hacer otra cosa, ésta línea es la que se debería cambiar
+        })
+      </script>
+    </a-marker>
+    <a-entity camera></a-entity>  <!-- Cierro la entiedad de cámara -->
+  </a-scene>
 </body>
-</html>
